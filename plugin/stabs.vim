@@ -41,12 +41,14 @@ endif
 " endfun
 
 fun! s:GetSoftTabStop()
-	if (&sts > 0)
-		return &sts
-	elseif (&sw > 0)
-		return &sw
+	if exists('g:stabs_align_width')
+		return g:stabs_align_width
+	elseif (&softtabstop > 0)
+		return &softtabstop
+	elseif (&shiftwidth > 0)
+		return &shiftwidth
 	else
-		return &ts
+		return &tabstop
 	endif
 endfun
 
@@ -303,5 +305,3 @@ endfun
 "   Bang (!) causes trailing whitespace to be gobbled.
 com! -nargs=? -range=% -bang -bar RetabIndent call <SID>RetabIndent(<q-bang>,<line1>, <line2>, <q-args> )
 
-
-" vim: sts=2 sw=2 et
